@@ -1,0 +1,26 @@
+.btn {
+  display: flex;
+  align-items: center;
+
+  &__svg {
+    width: 1.5em;
+    height: 1.5em;
+    margin-right: 0.5em;
+    color: red;
+  }
+}
+.recording {
+  animation: isRecording 0.9s ease-out infinite;
+}
+
+@keyframes isRecording {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
