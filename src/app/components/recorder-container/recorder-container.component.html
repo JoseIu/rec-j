@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="recorder">
+    @if (!isRecording) {
+
+    <recorder-button (click)="recording()" [text]="'REC'" />
+
+    } @else {
+    <recorder-button (click)="stopRecording()" [text]="'STOP'" />
+
+    }
+  </div>
+</div>
