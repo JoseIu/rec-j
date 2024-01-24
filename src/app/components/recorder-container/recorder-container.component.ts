@@ -18,28 +18,19 @@ export class RecorderContainerComponent {
 
   public existURL: boolean = false;
 
-  public constraints = {
-    audio: true,
-    // video: true,
-  };
-
   public async recording() {
     try {
-      // Obetenemos los dispotistivos de entrada audio y video
-      const userMedia = await navigator.mediaDevices.getUserMedia(
-        this.constraints
-      );
-
       //Obtenemos la ventana a compartir
       const media = await navigator.mediaDevices.getDisplayMedia({
+        video: {
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+          frameRate: { ideal: 30 },
+        },
         audio: true,
-        video: { frameRate: { ideal: 30 } },
       });
 
-      //Combinamos los dos streams audio y ventana
-      const tracks = [...media.getTracks(), ...userMedia.getTracks()];
-
-      const combinedStream = new MediaStream(tracks);
+      const combinedStream = new MediaStream(media);
 
       this.mediarecorder = new MediaRecorder(combinedStream, {
         mimeType: 'video/webm;codecs=vp8,opus',
@@ -52,7 +43,6 @@ export class RecorderContainerComponent {
       video.addEventListener('ended', () => {
         if (this.mediarecorder) {
           this.mediarecorder.stop();
-          this.isRecording = false;
         }
       });
 
